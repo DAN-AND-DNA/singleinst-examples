@@ -1,21 +1,21 @@
 # examples
 
 ## KVStorage
-非常简单的key value数据存储服务，用来说明单例模块的使用方式:
+A very simple key value data storage service to illustrate the use of single instance modules:
 
-1. WebBFF为web端提供Restful API，对后端接口进行封装，提供少量数据缓存
-2. KVService，grpc服务，提供数据存取服务
-3. UserService，grpc服务，提供用户权限校验服务
+1. WebBFF provides Restful API for the web side, encapsulates the back-end interface and provides a small amount of data caching
+2. KVService, grpc service, provides data access service
+3. UserService, grpc service, provides user permission verification service
 
 ```c++
-k8s中的架构                ______________________________ 
+Architecture in k8s        ______________________________ 
                           | k8s             KVService   |
                           |               /             |  
-                          |        WebBFF - KVService   |  -- DB集群
+                          |        WebBFF - KVService   |  -- DB clusters
                           |      /        \             |
 Clients -- WAF -- SLB --  | Ingress         KVService   | 
                           |      \                      |
-                          |        WebBFF - UserService |  -- Redis集群
+                          |        WebBFF - UserService |  -- Redis clusters
                           |               \             |
                           |                 UserService |
                           |_____________________________|
@@ -24,11 +24,14 @@ Clients -- WAF -- SLB --  | Ingress         KVService   |
 ## 用法
 1. git clone https://github.com/DAN-AND-DNA/singleinst 
 2. git clone https://github.com/DAN-AND-DNA/singleinst-examples
-3. 复制 ./singleinst-examples/examples 到 ./singleinst/ 中
-4. 分别启动examples中的3个服务
-5. postman 发送POST请求, 路径为 http://127.0.0.1:3737/nanogo/webbff/webbff/login 来获得token
-6. 填充头部Token，发送POST请求 http://127.0.0.1:3737/nanogo/webbff/webbff/set 来设置值
-7. 填充头部Token，发送POST请求 http://127.0.0.1:3737/nanogo/webbff/webbff/get 获得值
+3. cp -r ./singleinst-examples/examples ./singleinst/
+4. Start each of the 3 services in examples
+5. Send a POST request using postman to get the token:  
+    http://127.0.0.1:3737/nanogo/webbff/webbff/login 
+6. Fill the header Token and send a POST request to set the value:  
+    http://127.0.0.1:3737/nanogo/webbff/webbff/set 
+7. Fill the header Token and send a POST request to set the value:   
+    http://127.0.0.1:3737/nanogo/webbff/webbff/get
 
 ```golang
 // login request

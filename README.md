@@ -1,5 +1,7 @@
 # examples
 
+[中文文档](README_cn.md)
+
 ## KVStorage
 A very simple key value data storage service to illustrate the use of single instance modules:
 

@@ -30,7 +30,7 @@ Clients -- WAF -- SLB --  | Ingress         KVService   |
 6. 填充头部Token，发送POST请求 http://127.0.0.1:3737/nanogo/webbff/webbff/set 来设置值
 7. 填充头部Token，发送POST请求 http://127.0.0.1:3737/nanogo/webbff/webbff/get 获得值
 
-```json
+```golang
 // login request
 {
     

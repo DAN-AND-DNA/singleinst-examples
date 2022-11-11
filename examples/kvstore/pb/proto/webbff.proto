@@ -1,0 +1,43 @@
+syntax = "proto3";
+package webbff;
+
+import "pb/proto/userservice.proto";
+import "pb/proto/kvservice.proto";
+
+option go_package = "nanogo/examples/kvstore/pb/webbff";
+
+
+message LoginReq {
+    string name = 1;
+    string password = 2;
+}
+
+message LoginResp {
+    // 登录token
+    string token = 1;
+
+    // 基础用户信息
+    userservice.UserInfo base_userinfo = 2;
+}
+
+message SetReq {
+    kvservice.KeyValue new_value = 1;
+}
+
+message SetResp {
+    kvservice.KeyValue old_value = 1;
+}
+
+message GetReq {
+    string key = 1;
+}
+
+message GetResp {
+    kvservice.KeyValue value = 1;
+}
+
+service WebBFF {
+    rpc Login(LoginReq) returns (LoginResp) {}
+    rpc Set(SetReq) returns (SetResp) {}
+    rpc Get(GetReq) returns (GetResp) {}
+}

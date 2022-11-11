@@ -1,0 +1,31 @@
+syntax = "proto3";
+package kvservice;
+
+
+option go_package = "nanogo/examples/kvstore/pb/kvservice";
+
+message KeyValue {
+    string key = 1;
+    string value = 2;
+}
+
+message SetReq {
+    KeyValue new_value = 1;
+}
+
+message SetResp {
+    KeyValue old_value = 1;
+}
+
+message GetReq {
+    string key = 1;
+}
+
+message GetResp {
+    KeyValue value = 1;
+}
+
+service KVService {
+    rpc Set(SetReq) returns (SetResp) {}
+    rpc Get(GetReq) returns (GetResp) {}
+}

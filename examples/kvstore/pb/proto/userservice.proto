@@ -1,0 +1,45 @@
+syntax = "proto3";
+package userservice;
+
+option go_package = "nanogo/examples/kvstore/pb/userservice";
+
+// 授权信息
+message AuthInfo {
+    string token = 1;           // token
+	uint64 created_unix = 2;    // 创建时间戳
+	uint64 expired_unix = 3;    // 过期时间戳
+	string user_uid = 4;        // 用户唯一ID
+	string username = 5;        // 用户名
+}
+
+
+// 用户信息
+message UserInfo {
+    string uid = 1;
+    string username = 2;
+    string password = 3;
+    int32 age = 4;
+}
+
+message LoginReq {
+    string name = 1;
+    string password = 2;
+}
+
+message LoginResp {
+    string token = 1;
+    UserInfo user_info = 2;
+}
+
+message IsAuthorizedReq {
+    string token = 1;
+}
+
+message IsAuthorizedResp {
+    bool is_authorized = 1;
+}
+
+service UserService {
+    rpc Login(LoginReq) returns (LoginResp) {}
+    rpc IsAuthorized(IsAuthorizedReq) returns (IsAuthorizedResp) {}
+}
